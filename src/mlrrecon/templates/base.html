@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}MLR Reconciliation{% endblock %}</title>
+<style>
+  :root { --ink:#1b2430; --muted:#5b6675; --line:#dfe3e8; --accent:#1f3864; --bg:#f6f7f9; --bad:#b42318; --ok:#1a7f37; }
+  * { box-sizing:border-box } body { margin:0; font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif; color:var(--ink); background:var(--bg) }
+  header { background:var(--accent); color:#fff; padding:12px 24px; display:flex; gap:24px; align-items:center }
+  header a { color:#fff; text-decoration:none; opacity:.85 } header a:hover { opacity:1 } header strong { margin-right:auto }
+  main { max-width:1200px; margin:0 auto; padding:20px 24px }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:20px }
+  .card { background:#fff; border:1px solid var(--line); border-radius:8px; padding:14px }
+  .card .v { font-size:22px; font-weight:600 } .card .k { color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.04em }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:8px; overflow:hidden; margin-bottom:24px }
+  th, td { padding:7px 10px; border-bottom:1px solid var(--line); text-align:left; white-space:nowrap }
+  th { background:#eef1f5; font-weight:600; font-size:12px } td.n { text-align:right; font-variant-numeric:tabular-nums }
+  .scroll { max-height:520px; overflow:auto; border-radius:8px; margin-bottom:24px } .scroll table { margin:0 }
+  .pill { padding:1px 8px; border-radius:10px; font-size:12px; background:#eef1f5 }
+  .open { background:#fde8e7; color:var(--bad) } .resolved, .accepted { background:#e6f4ea; color:var(--ok) } .investigating { background:#fff4d6 }
+  .above { color:var(--bad) } h2 { margin:8px 0 10px; font-size:16px } form.inline { display:flex; gap:6px }
+  select, input, button { font:inherit; padding:3px 6px }
+</style>
+</head>
+<body>
+<header><strong>MLR Reconciliation</strong>
+  <a href="/?year={{ year }}">Dashboard</a><a href="/exceptions?year={{ year }}">Exceptions</a>
+  <form method="get"><select name="year" onchange="this.form.submit()">{% for y in years %}<option {% if y == year %}selected{% endif %}>{{ y }}</option>{% endfor %}</select></form>
+</header>
+<main>{% block content %}{% endblock %}</main>
+</body>
+</html>

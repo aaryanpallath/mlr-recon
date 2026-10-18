@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="cards">
+  {% for s in ['open', 'investigating', 'resolved', 'accepted'] %}
+  <div class="card"><div class="k">{{ s }}</div><div class="v">{{ counts.by_status.get(s, 0) }}</div></div>
+  {% endfor %}
+</div>
+<form method="get" class="inline" style="margin-bottom:12px">
+  <input type="hidden" name="year" value="{{ year }}">
+  <select name="status"><option value="">All statuses</option>{% for s in ['open','investigating','resolved','accepted'] %}<option {% if s == status %}selected{% endif %}>{{ s }}</option>{% endfor %}</select>
+  <select name="category"><option value="">All categories</option>{% for c in counts.by_category %}<option {% if c == category %}selected{% endif %}>{{ c }}</option>{% endfor %}</select>
+  <button>Filter</button>
+</form>
+<div class="scroll"><table>
+  <tr><th>ID</th><th>State</th><th>Company</th><th>Market</th><th>Check</th><th>Category</th><th>Reported</th><th>Expected</th><th>Status</th><th>Update</th></tr>
+  {% for e in rows %}
+  {% set money = e.check_name == 'rebate' %}
+  <tr><td>{{ e.id }}</td><td>{{ e.state }}</td><td>{{ e.company_name[:38] }}</td><td>{{ e.market|label }}</td>
+      <td>{{ e.check_name|label }}</td><td>{{ e.category|label }}</td>
+      <td class="n">{{ e.reported|usd if money else '%.4f'|format(e.reported) }}</td>
+      <td class="n">{{ e.expected|usd if money else '%.4f'|format(e.expected) }}</td>
+      <td><span class="pill {{ e.status }}">{{ e.status }}</span></td>
+      <td><form method="post" action="/exceptions/{{ e.id }}/status" class="inline">
+        <input type="hidden" name="year" value="{{ year }}">
+        <select name="to_status">{% for t in transitions[e.status]|sort %}<option>{{ t }}</option>{% endfor %}</select>
+        <input name="note" placeholder="note" size="14"><button>Save</button></form></td></tr>
+  {% else %}<tr><td colspan="10">No exceptions match.</td></tr>{% endfor %}
+</table></div>
+{% endblock %}

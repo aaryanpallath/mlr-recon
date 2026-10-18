@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="cards">
+  <div class="card"><div class="k">Earned premium {{ year }} (CMM)</div><div class="v">{{ totals.premium|usd }}</div></div>
+  <div class="card"><div class="k">Rebates owed</div><div class="v">{{ totals.rebates|usd }}</div></div>
+  <div class="card"><div class="k">Insurer-markets owing</div><div class="v">{{ totals.owing }}</div></div>
+  <div class="card"><div class="k">Open exceptions</div><div class="v">{{ counts.by_status.get('open', 0) }}</div></div>
+</div>
+
+<h2>{{ peer_company }} vs. peers ({{ year }}, credibility-adjusted MLR)</h2>
+<table>
+  <tr><th>State</th><th>Market</th><th>MLR</th><th>Standard</th><th>Peer median</th><th>Peers</th><th>Rank (high→low)</th><th>Earned premium</th><th>Rebate</th></tr>
+  {% for r in peers %}
+  <tr><td>{{ r.state }}</td><td>{{ r.market }}</td><td class="n">{{ r.adjusted_mlr|pct }}</td><td class="n">{{ r.mlr_standard|pct }}</td>
+      <td class="n">{{ r.peer_median_mlr|pct }}</td><td class="n">{{ r.peers }}</td><td class="n">{{ r.rank_high_to_low }}</td>
+      <td class="n">{{ r.earned_premium_cy|usd }}</td><td class="n">{{ r.rebate|usd }}</td></tr>
+  {% else %}<tr><td colspan="9">No filings found for {{ peer_company }}.</td></tr>{% endfor %}
+</table>
+
+<h2>By state and market</h2>
+<div class="scroll"><table>
+  <tr><th>State</th><th>Market</th><th>Insurers</th><th>Weighted MLR</th><th>Earned premium</th><th>Rebates</th><th>Owing</th></tr>
+  {% for r in states %}
+  <tr><td>{{ r.state }}</td><td>{{ r.market|label }}</td><td class="n">{{ r.insurers }}</td>
+      <td class="n">{{ (r.numerator / r.denominator)|pct }}</td><td class="n">{{ r.earned_premium_cy|usd }}</td>
+      <td class="n">{{ r.rebates|usd }}</td><td class="n">{{ r.insurers_owing }}</td></tr>
+  {% endfor %}
+</table></div>
+{% endblock %}

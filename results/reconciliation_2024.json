@@ -1,0 +1,211 @@
+{
+  "reporting_year": 2024,
+  "checks_run": {
+    "preliminary_mlr": 1378,
+    "adjusted_mlr": 1381,
+    "rebate": 1518
+  },
+  "checks_passed": {
+    "preliminary_mlr": 1373,
+    "adjusted_mlr": 1379,
+    "rebate": 1507
+  },
+  "merged_market_rebate_splits_verified": 5,
+  "exceptions": 18,
+  "exceptions_by_category": {
+    "implausible_value": 2,
+    "nonpositive_premium": 9,
+    "unexplained": 7
+  },
+  "filings_with_rebate_data": 1271,
+  "market_filings_owing_rebates": 219,
+  "total_rebates_reported_usd": 1648313179.86,
+  "load": {
+    "filings": 2194,
+    "lines": 413646,
+    "skipped_lines": 0,
+    "sha256": "d2fe4d2e805cf6c6363f3406450019dc134eef23909ac608f169872de679d595"
+  },
+  "hcsc_peer_view": [
+    {
+      "state": "IL",
+      "market": "Individual",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.893,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.912,
+      "peers": 13,
+      "rank_high_to_low": 9,
+      "rebate": 0.0,
+      "earned_premium_cy": 2212228965.78
+    },
+    {
+      "state": "IL",
+      "market": "Large group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.94,
+      "mlr_standard": 0.85,
+      "peer_median_mlr": 0.914,
+      "peers": 17,
+      "rank_high_to_low": 6,
+      "rebate": 0.0,
+      "earned_premium_cy": 9151775639.0
+    },
+    {
+      "state": "IL",
+      "market": "Small group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.877,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.9145000000000001,
+      "peers": 8,
+      "rank_high_to_low": 6,
+      "rebate": 0.0,
+      "earned_premium_cy": 3225526419.9
+    },
+    {
+      "state": "MT",
+      "market": "Individual",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.914,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.9339999999999999,
+      "peers": 2,
+      "rank_high_to_low": 3,
+      "rebate": 0.0,
+      "earned_premium_cy": 253862098.82
+    },
+    {
+      "state": "MT",
+      "market": "Large group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.944,
+      "mlr_standard": 0.85,
+      "peer_median_mlr": 1.0215,
+      "peers": 2,
+      "rank_high_to_low": 2,
+      "rebate": 0.0,
+      "earned_premium_cy": 513751476.0
+    },
+    {
+      "state": "MT",
+      "market": "Small group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.936,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.911,
+      "peers": 3,
+      "rank_high_to_low": 2,
+      "rebate": 0.0,
+      "earned_premium_cy": 173295952.61
+    },
+    {
+      "state": "NM",
+      "market": "Individual",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 1.015,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.937,
+      "peers": 4,
+      "rank_high_to_low": 3,
+      "rebate": 0.0,
+      "earned_premium_cy": 206941414.0
+    },
+    {
+      "state": "NM",
+      "market": "Large group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.94,
+      "mlr_standard": 0.85,
+      "peer_median_mlr": 0.947,
+      "peers": 5,
+      "rank_high_to_low": 4,
+      "rebate": 0.0,
+      "earned_premium_cy": 609605873.0
+    },
+    {
+      "state": "NM",
+      "market": "Small group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.906,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.86,
+      "peers": 4,
+      "rank_high_to_low": 2,
+      "rebate": 0.0,
+      "earned_premium_cy": 176283478.0
+    },
+    {
+      "state": "OK",
+      "market": "Individual",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.985,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.788,
+      "peers": 6,
+      "rank_high_to_low": 2,
+      "rebate": 0.0,
+      "earned_premium_cy": 1229085099.0
+    },
+    {
+      "state": "OK",
+      "market": "Large group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.925,
+      "mlr_standard": 0.85,
+      "peer_median_mlr": 0.91,
+      "peers": 7,
+      "rank_high_to_low": 2,
+      "rebate": 0.0,
+      "earned_premium_cy": 2050275417.0
+    },
+    {
+      "state": "OK",
+      "market": "Small group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.857,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.9079999999999999,
+      "peers": 4,
+      "rank_high_to_low": 4,
+      "rebate": 0.0,
+      "earned_premium_cy": 865862559.0
+    },
+    {
+      "state": "TX",
+      "market": "Individual",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.842,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.8485,
+      "peers": 18,
+      "rank_high_to_low": 10,
+      "rebate": 0.0,
+      "earned_premium_cy": 9195196771.0
+    },
+    {
+      "state": "TX",
+      "market": "Large group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.941,
+      "mlr_standard": 0.85,
+      "peer_median_mlr": 0.93,
+      "peers": 15,
+      "rank_high_to_low": 5,
+      "rebate": 0.0,
+      "earned_premium_cy": 10780124458.0
+    },
+    {
+      "state": "TX",
+      "market": "Small group",
+      "company": "Health Care Service Corporation, a Mutual Legal Reserve Company",
+      "adjusted_mlr": 0.886,
+      "mlr_standard": 0.8,
+      "peer_median_mlr": 0.851,
+      "peers": 7,
+      "rank_high_to_low": 3,
+      "rebate": 0.0,
+      "earned_premium_cy": 4408425109.0
+    }
+  ]
+}
