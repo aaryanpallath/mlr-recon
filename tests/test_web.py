@@ -31,3 +31,15 @@ def test_dashboard_and_exception_workflow(tmp_path, puf):
     bad = c.post(f"/exceptions/{eid}/status", data={"to_status": "bogus", "year": 2024})
     assert bad.status_code == 400
     assert c.post("/exceptions/999/status", data={"to_status": "resolved", "year": 2024}).status_code == 404
+
+
+def test_status_change_rejects_cross_site_posts(tmp_path, puf):
+    c, eid = client(tmp_path, puf)
+    form = {"to_status": "investigating", "year": 2024}
+    assert c.post(f"/exceptions/{eid}/status", data=form, headers={"origin": "https://evil.example"}).status_code == 403
+    assert c.post(f"/exceptions/{eid}/status", data=form, headers={"sec-fetch-site": "cross-site"}).status_code == 403
+    assert c.post(f"/exceptions/{eid}/status", data=form, headers={"host": "attacker.example"}).status_code == 403
+    assert c.get(f"/api/exceptions/{eid}/history").json()[-1]["to_status"] == "open"   # nothing changed
+    ok = c.post(f"/exceptions/{eid}/status", data=form, headers={"origin": "http://testserver"},
+                follow_redirects=False)
+    assert ok.status_code == 303

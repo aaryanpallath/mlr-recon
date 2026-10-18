@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import sqlite3
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
@@ -57,8 +58,9 @@ def create_app(db_path: str | Path = DEFAULT_DB, peer_company: str = "Health Car
             "status": status, "category": category, "counts": counts(y), "transitions": recon.TRANSITIONS})
 
     @app.post("/exceptions/{exception_id}/status")
-    def update_status(exception_id: int, to_status: str = Form(...), note: str = Form(""),
+    def update_status(request: Request, exception_id: int, to_status: str = Form(...), note: str = Form(""),
                       year: int = Form(...)):
+        check_same_origin(request)
         try:
             recon.set_status(con, exception_id, to_status, note or None)
         except KeyError:
@@ -78,6 +80,24 @@ def create_app(db_path: str | Path = DEFAULT_DB, peer_company: str = "Health Car
         return {"reporting_year": y, **counts(y)}
 
     return app
+
+
+LOCAL_HOSTS = {"127.0.0.1", "localhost", "testserver"}
+
+
+def check_same_origin(request: Request) -> None:
+    """Block cross-site form posts (CSRF) and DNS rebinding: the request must be addressed to a local host
+    name and, when the browser says where it came from, come from this dashboard's own origin."""
+    host = request.headers.get("host", "")
+    if host.rsplit(":", 1)[0] not in LOCAL_HOSTS:
+        raise HTTPException(403, "unexpected Host header")
+    source = request.headers.get("origin") or request.headers.get("referer")
+    if source is None:
+        if request.headers.get("sec-fetch-site", "same-origin") not in ("same-origin", "none"):
+            raise HTTPException(403, "cross-site request rejected")
+        return
+    if urlsplit(source).netloc != host:
+        raise HTTPException(403, "cross-site request rejected")
 
 
 def _sum(rows: list[sqlite3.Row], key: str) -> dict[str, int]:
