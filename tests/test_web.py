@@ -38,7 +38,8 @@ def test_status_change_rejects_cross_site_posts(tmp_path, puf):
     form = {"to_status": "investigating", "year": 2024}
     assert c.post(f"/exceptions/{eid}/status", data=form, headers={"origin": "https://evil.example"}).status_code == 403
     assert c.post(f"/exceptions/{eid}/status", data=form, headers={"sec-fetch-site": "cross-site"}).status_code == 403
-    assert c.post(f"/exceptions/{eid}/status", data=form, headers={"host": "attacker.example"}).status_code == 403
+    # a foreign Host is refused by TrustedHostMiddleware (400) before reaching the route
+    assert c.post(f"/exceptions/{eid}/status", data=form, headers={"host": "attacker.example"}).status_code == 400
     assert c.get(f"/api/exceptions/{eid}/history").json()[-1]["to_status"] == "open"   # nothing changed
     ok = c.post(f"/exceptions/{eid}/status", data=form, headers={"origin": "http://testserver"},
                 follow_redirects=False)
