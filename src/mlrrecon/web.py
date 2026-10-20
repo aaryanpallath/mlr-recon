@@ -9,6 +9,7 @@ from urllib.parse import urlsplit
 from fastapi import FastAPI, Form, HTTPException, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
+from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from . import recon, report
 from .db import DEFAULT_DB, connect, migrate
@@ -23,6 +24,8 @@ def create_app(db_path: str | Path = DEFAULT_DB, peer_company: str = "Health Car
     con = connect(db_path)
     migrate(con)
     app = FastAPI(title="MLR Reconciliation")
+    # every request, reads included, must target a local host name (blocks DNS rebinding)
+    app.add_middleware(TrustedHostMiddleware, allowed_hosts=sorted(LOCAL_HOSTS))
 
     def years() -> list[int]:
         return [r[0] for r in con.execute("SELECT DISTINCT reporting_year FROM filings ORDER BY 1 DESC")]

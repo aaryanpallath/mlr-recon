@@ -43,3 +43,10 @@ def test_status_change_rejects_cross_site_posts(tmp_path, puf):
     ok = c.post(f"/exceptions/{eid}/status", data=form, headers={"origin": "http://testserver"},
                 follow_redirects=False)
     assert ok.status_code == 303
+
+
+def test_requests_for_other_host_names_are_refused(tmp_path, puf):
+    c, _eid = client(tmp_path, puf)
+    for path in ("/", "/exceptions", "/api/summary"):
+        assert c.get(path, headers={"host": "attacker.example"}).status_code == 400
+    assert c.get("/api/summary", headers={"host": "localhost:8000"}).status_code == 200
